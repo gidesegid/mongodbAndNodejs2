@@ -18,14 +18,14 @@ mongo.connect('mongodb://localhost:27017/todos', function(err, db) {
         console.warn('Error connecting database ...')
     }
 });
-
 console.log('Collection: ', collection);
 // Use JSON body parser middleware.
 app.use(bodyParser.json());
 
-
+//get all todosdata collection
 app.get('/todos',function(request,response){
 	 var id = request.params.id;
+
     var rows = todosAPI.getTodos(collection, id, function(err, documents) {
         if (!err) {
             console.log('Documents received by get: ', documents);
@@ -38,9 +38,8 @@ app.get('/todos',function(request,response){
 
 })
 
+//insert to todosdata collection
 app.post('/todos',function(request,response){
-	        
-	        
 	var obj=[ {"id":0,"task":"wakeup early","done":1},
 	          {"id":1,"task":"wash face","done":1},
 	          {"id":2,"task":"eat breakfast","done":0},
@@ -50,7 +49,6 @@ app.post('/todos',function(request,response){
 	          {"id":6,"task":"Eat dinner","done":0},
 	          {"id":7,"task":"Sleep","done":0}
 	        ]
-	         
 	mongo.connect(url,function(error,db){
 		assert.equal(null,error);
 		//todosdata is a collection in the todos database of mongodb
@@ -62,6 +60,7 @@ app.post('/todos',function(request,response){
 	})
 })
 
+//update todosdata collection
 app.put('/todos',function(request,response){
 	var updateItem={"task":"wash face"};
 	var updatItemWith={"task":"wash face after wakeup"}
@@ -74,18 +73,19 @@ app.put('/todos',function(request,response){
 		})
 	})
 })
-
+//delete todosdata collection
 app.delete('/todos',function(request,response){
 	var deleteItem=request.params._id;
 		 mongo.connect(url,function(error,db){
 		assert.equal(null,error);
 		
-		db.collection('todosdata').remove(deleteItem,function(error,result){
+		db.collection('todosdata').deleteOne(deleteItem,function(error,result){
 			assert.equal(null,error);
 			console.log("succesfully removed");
 			response.send("deleted succesfully");
 		})
 	})
 })
+//listening port
 app.listen(8000);
 console.log("server is started");
