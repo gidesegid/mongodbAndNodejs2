@@ -1,0 +1,16 @@
+{
+  "name": "mongodbtestnodejs",
+  "version": "6.3.1",
+  "description": "this is a test to create connection mongodb with nodejs",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "gide segid",
+  "license": "ISC",
+  "dependencies": {
+    "assert": "^1.4.1",
+    "body-parser": "^1.15.2",
+    "express": "^4.14.0"
+  }
+}
